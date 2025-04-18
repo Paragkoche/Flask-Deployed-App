@@ -6,12 +6,18 @@ import CNN
 import numpy as np
 import torch
 import pandas as pd
+from gdown import download
 
 
 disease_info = pd.read_csv('disease_info.csv', encoding='cp1252')
 supplement_info = pd.read_csv('supplement_info.csv', encoding='cp1252')
 
 model = CNN.CNN(39)
+if not os.path.exists("plant_disease_model_1_latest.pt"):
+    url = "https://drive.google.com/uc?id=1GWJ5HC8LxQsExmHEZWf7q89MRUquqt7U"
+    output = "plant_disease_model_1_latest.pt"
+    download(url, output, quiet=False)
+
 model.load_state_dict(torch.load("plant_disease_model_1_latest.pt"))
 model.eval()
 
